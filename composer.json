@@ -1,0 +1,19 @@
+{
+    "name": "objectivco/WP_Tabbed_Navigation",
+    "description": "Automate creating a tabbed navigation and maintaining tabbed states",
+    "homepage": "https://github.com/Objectivco/WP_Tabbed_Navigation",
+    "type": "library",
+    "require": {
+        "php": ">=5.2.0"
+    },
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Clifton Griffin",
+            "email": "clif@objectiv.co"
+        }
+    ],
+    "autoload": {
+        "classmap": ["src/class-wp-tabbed-navigation.php"]
+    }
+}
