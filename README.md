@@ -1,6 +1,14 @@
 # WP_Tabbed_Navigation
 Automate creating a tabbed navigation and maintaining tabbed states
 
+## Installing
+Use composer:
+```txt
+composer require objectivco/wp_tabbed_navigation
+```
+
+Or include the file. (But really, just use composer)
+
 ## Initiating the Tab System
 ```php
 $wp_tabbed_navigation = new WP_Tabbed_Navigation('Advanced Content Templates Settings');
@@ -30,4 +38,4 @@ $wp_tabbed_navigation->add_tab('Support', menu_page_url('act-support', false ) )
 $wp_tabbed_navigation->display_tabs();
 ```
 
-## That's it! Have fun kids. 
+## That's it! Have fun kids.
