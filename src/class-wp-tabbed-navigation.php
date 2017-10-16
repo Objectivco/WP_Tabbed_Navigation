@@ -81,7 +81,7 @@ class WP_Tabbed_Navigation {
 
 		$html .= '<h2 class="nav-tab-wrapper">';
 
-		foreach( $this->_tabs as $tab ) {
+		foreach ( $this->_tabs as $tab ) {
 			$class = '';
 
 			$match_url = str_replace( get_site_url(), '', $tab['url'] );
