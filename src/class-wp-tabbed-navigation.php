@@ -5,31 +5,36 @@
  * Automate creating a tabbed navigation and maintaining tabbed states
  *
  *
- * @since      0.1.0
+ * @since      0.2.0
  * @package    Advanced_Content_Templates
  * @subpackage Advanced_Content_Templates/includes
  * @author     Clifton Griffin <clif@objectiv.co>
  */
 class WP_Tabbed_Navigation {
-	private $_tabs = array();
-	private $_title = false;
+	private $_tabs              = array();
+	private $_title             = false;
+	private $_selected_tab_query_arg = false;
 
-	public function __construct($title) {
-		$this->_title = $title;
+	public function __construct( $title, $selected_tab_query_arg = 'subpage' ) {
+		$this->_title                  = $title;
+		$this->_selected_tab_query_arg = $selected_tab_query_arg;
 	}
 
-	public function add_tab($title, $url) {
-		$this->_tabs[ sanitize_key($title) ] = array(
+	public function add_tab( $title, $url, $tab_slug = false ) {
+		if ( false === $tab_slug ) {
+			$tab_slug = sanitize_key( $title );
+		}
+		$this->_tabs[ $tab_slug ] = array(
 			'title' => $title,
-			'url'   => $url
+			'url'   => $url,
 		);
 	}
 
-	public function remove_tab($title) {
-		$key = sanitize_key($title);
+	public function remove_tab( $title ) {
+		$key = sanitize_key( $title );
 
-		if ( isset($this->_tabs[$key]) ) {
-			unset($this->_tabs[$key]);
+		if ( isset( $this->_tabs[ $key ] ) ) {
+			unset( $this->_tabs[ $key ] );
 		}
 	}
 
@@ -38,11 +43,13 @@ class WP_Tabbed_Navigation {
 
 		$html .= '<h2 class="nav-tab-wrapper">';
 
-		foreach($this->_tabs as $tab) {
+		foreach ( $this->_tabs as $slug => $tab ) {
 			$class = '';
 
-			$match_url = str_replace(get_site_url(), '', $tab['url']);
-			if ( $_SERVER['REQUEST_URI'] == html_entity_decode($match_url) ) $class = 'nav-tab-active';
+			$match_url = str_replace( get_site_url(), '', $tab['url'] );
+			if ( ( ! empty( $_GET[ $this->_selected_tab_query_arg ] ) && $slug == $_GET[ $this->_selected_tab_query_arg ] ) || $_SERVER['REQUEST_URI'] == html_entity_decode( $match_url ) ) {
+				$class = 'nav-tab-active';
+			}
 
 			$html .= '<a href="' . $tab['url'] . '" class="nav-tab ' . $class . '">';
 			$html .= ' ' . __( $tab['title'] );
