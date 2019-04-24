@@ -11,24 +11,21 @@ Or include the file. (But really, just use composer)
 
 ## Initiating the Tab System
 ```php
-$wp_tabbed_navigation = new WP_Tabbed_Navigation('Advanced Content Templates Settings');
+$wp_tabbed_navigation = new WP_Tabbed_Navigation( 'My Plugin Settings', $selected_tab_query_arg = 'subpage' );
 ```
 
 ## Setup Some Submenus
-### These will be linked to our tabs
+### These will be linked to our tab'
 ```php
-add_submenu_page( "edit.php?post_type={$this->plugin->post_type}", "Advanced Content Templates Settings", "Settings", "manage_options", "act-settings", array($this, 'admin_settings_page') );
-add_submenu_page( "edit.php?post_type={$this->plugin->post_type}", "Advanced Content Templates License", "License", "manage_options", "act-license", array($this, 'admin_license_page') );
-add_submenu_page("edit.php?post_type={$this->plugin->post_type}", "Advanced Content Templates Add-Ons", "Add-Ons", "manage_options", "act-addons", array($this, 'admin_addons_page') );
-add_submenu_page("edit.php?post_type={$this->plugin->post_type}", "Advanced Content Templates Support", "Support", "manage_options", "act-support", array($this, 'admin_support_page') );
+add_options_page( __( 'My Plugin Settings', 'my-plugin' ), __( 'My Plugin Settings', 'my-plugin' ), 'manage_options', 'my-plugin-settings', array($this, 'admin_page') );
 ```
 
 ## Setup Tabs Using The Same Menu Slugs
 ```php
-$wp_tabbed_navigation->add_tab('Settings', menu_page_url('act-settings', false) );
-$wp_tabbed_navigation->add_tab('Add-ons', menu_page_url('act-addons', false) );
-$wp_tabbed_navigation->add_tab('License', menu_page_url('act-license', false) );
-$wp_tabbed_navigation->add_tab('Support', menu_page_url('act-support', false ) );
+$wp_tabbed_navigation->add_tab( 'Settings', add_query_arg( array('subpage' => 'settings'), menu_page_url('my-plugin-settings', false) ) );
+$wp_tabbed_navigation->add_tab( 'Add-ons', add_query_arg( array('subpage' => 'addons'), menu_page_url('my-plugin-settings', false) ) );
+$wp_tabbed_navigation->add_tab( 'License', add_query_arg( array('subpage' => 'license'), menu_page_url('my-plugin-settings', false) ) );
+$wp_tabbed_navigation->add_tab( 'Support', add_query_arg( array('subpage' => 'support'), menu_page_url('my-plugin-settings', false) ) );
 ```
 
 ## Displaying the Tabs
