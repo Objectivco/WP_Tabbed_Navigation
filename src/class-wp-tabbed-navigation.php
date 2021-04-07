@@ -89,8 +89,12 @@ class WP_Tabbed_Navigation {
 	 *
 	 * @return string Tab markup.
 	 */
-	public function get_tabs() {
-		$html = '<h2>' . $this->_title . '</h2>';
+	public function get_tabs( $show_title = true ) {
+	    $html = '';
+
+	    if ( $show_title ) {
+            $html .= '<h2>' . $this->_title . '</h2>';
+        }
 
 		$html .= '<h2 class="nav-tab-wrapper">';
 
@@ -117,7 +121,7 @@ class WP_Tabbed_Navigation {
 	 *
 	 * @since 0.1.0
 	 */
-	public function display_tabs() {
-		echo $this->get_tabs();
+	public function display_tabs( $show_title = true ) {
+		echo $this->get_tabs( $show_title );
 	}
 }
